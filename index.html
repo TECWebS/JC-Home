@@ -239,7 +239,6 @@
       <li><button data-route="about">Meet JC</button></li>
       <li><button data-route="learn">Learn</button></li>
       <li><a href="https://www.jcdesignandadorn.com/" target="_blank" rel="noopener">Adorn</a></li>
-      <li><button data-route="space">Space</button></li>
     </ul>
     <button class="navtoggle" id="navtoggle" aria-label="Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -254,7 +253,7 @@
     <div class="wrap hero">
       <div class="hero-grid">
         <h1>Empowered to work.<br>Working to empower.</h1>
-        <p class="hero-sub">I'm JC, a designer, teacher, and maker of faith-forward spaces. Three doors into the work live here: resources for the classroom, adornment for the walk of faith, and design for the rooms in between.</p>
+        <p class="hero-sub">I'm JC, a designer, teacher, and maker of faith-forward spaces. Two doors into the work live here: resources for the classroom, and adornment for the walk of faith.</p>
       </div>
     </div>
 
@@ -302,30 +301,6 @@
         </div>
       </div>
 
-      <!-- Door 3: Space -->
-      <div class="door dark">
-        <div class="door-grid">
-          <div class="door-text">
-            <div class="door-kicker">Organizing &amp; staging</div>
-            <h2>Space Pinch &amp; Staging</h2>
-            <p class="desc">Turn tight, cluttered areas into calm, functional spaces. From classrooms to closets to cozy corners at home, we clear out, organize, and stage spaces that are beautiful, practical, and easy to maintain.</p>
-          </div>
-          <div class="door-art">
-            <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="298" height="223" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-              <rect x="30" y="30" width="100" height="75" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-              <rect x="150" y="30" width="120" height="45" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-              <rect x="150" y="90" width="55" height="95" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-              <rect x="220" y="90" width="50" height="60" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-              <rect x="30" y="120" width="100" height="65" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
-            </svg>
-          </div>
-        </div>
-        <div class="cta-block cta-block--flush">
-          <h3>Have a room, closet, or classroom that needs a pinch?</h3>
-          <a href="mailto:info@jcdesignandadorn.com?subject=Space%20Pinch%20%26%20Staging%20consultation">Book a consultation</a>
-        </div>
-      </div>
     </div>
 
     <div class="mission">
@@ -384,7 +359,7 @@
         <div class="step">
           <div class="num">Achievements</div>
           <h3>Results that matter</h3>
-          <p>Milestones from Classyroom Prints, Adorned Doctrine, and Space Pinch &amp; Staging land here as they're reached.</p>
+          <p>Milestones from Classyroom Prints and Adorned Doctrine land here as they're reached.</p>
         </div>
         <div class="step">
           <div class="num">Nominations</div>
@@ -488,40 +463,6 @@
     </div>
   </section>
 
-  <!-- SPACE / STAGING -->
-  <section data-view="space">
-    <div class="wrap page-head">
-      <button class="back" data-route="">&larr; Back to the hub</button>
-      <div class="kicker">Organizing &amp; staging</div>
-      <h1>Space Pinch &amp; Staging</h1>
-      <p class="lede">Turn tight, cluttered areas into calm, functional spaces. From classrooms to closets to cozy corners at home, we clear out, organize, and stage spaces that are beautiful, practical, and easy to maintain.</p>
-    </div>
-    <div class="wrap section-pad">
-      <div class="steps">
-        <div class="step">
-          <div class="num">One</div>
-          <h3>Consult</h3>
-          <p>We walk the space together and talk through how it's actually used day to day, and what "done" should feel like.</p>
-        </div>
-        <div class="step">
-          <div class="num">Two</div>
-          <h3>Clear</h3>
-          <p>We sort, pare down, and remove what's cluttering the space, keeping only what earns its spot.</p>
-        </div>
-        <div class="step">
-          <div class="num">Three</div>
-          <h3>Stage</h3>
-          <p>We organize and style what's left so the space stays beautiful and easy to maintain long after we leave.</p>
-        </div>
-      </div>
-
-      <div class="cta-block">
-        <h3>Have a room, closet, or classroom that needs a pinch?</h3>
-        <a href="mailto:info@jcdesignandadorn.com?subject=Space%20Pinch%20%26%20Staging%20consultation">Book a consultation</a>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <footer>
@@ -545,7 +486,7 @@
 
   function render(){
     const route = routeFromHash();
-    const valid = ['home','about','learn','adorn','space'];
+    const valid = ['home','about','learn','adorn'];
     const target = valid.includes(route) ? route : (route === '' ? 'home' : 'home');
     views.forEach(v => v.classList.toggle('active', v.dataset.view === target));
     document.querySelectorAll('.navlinks button').forEach(b=>{
