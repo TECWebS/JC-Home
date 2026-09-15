@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JC Design &amp; Adorn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --ink:#121212;
+    --grey:#6e6e68;
+    --line:#dcdcd7;
+    --panel-ink:#ffffff;
+    --panel-paper:#121212;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --paper:#121212;
+      --ink:#f3f3ef;
+      --grey:#9d9d95;
+      --line:#333330;
+      --panel-ink:#121212;
+      --panel-paper:#f3f3ef;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#121212;
+    --ink:#f3f3ef;
+    --grey:#9d9d95;
+    --line:#333330;
+    --panel-ink:#121212;
+    --panel-paper:#f3f3ef;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    transition:background .3s ease, color .3s ease;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 28px; max-width:1080px; margin:0 auto;
+  }
+  .mark{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:1.4rem; letter-spacing:.01em; text-decoration:none;
+    cursor:pointer; background:none; border:none; color:var(--ink); padding:0;
+  }
+  .navlinks{display:flex; gap:30px; list-style:none; margin:0; padding:0;}
+  .navlinks button{
+    background:none;border:none;cursor:pointer;
+    font-family:'Archivo',sans-serif; font-size:.92rem; color:var(--grey);
+    padding:4px 0; border-bottom:1px solid transparent;
+  }
+  .navlinks button.active, .navlinks button:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+  .navtoggle{display:none; background:none;border:none;cursor:pointer;color:var(--ink);}
+  .navtoggle svg{width:22px;height:22px;}
+
+  @media (max-width:720px){
+    .navlinks{
+      position:absolute; top:100%; left:0; right:0; background:var(--paper);
+      flex-direction:column; gap:0; border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+    }
+    .navlinks.open{max-height:260px;}
+    .navlinks li{border-top:1px solid var(--line);}
+    .navlinks button{padding:16px 28px; width:100%; text-align:left; font-size:1rem;}
+    .navtoggle{display:block;}
+  }
+
+  /* ---------- Type ---------- */
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:400; margin:0; line-height:1.05;}
+  p{margin:0; line-height:1.6;}
+  .eyebrow-free{margin-bottom:6px;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:90px 0 70px;}
+  .hero-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:60px; align-items:end;}
+  .hero h1{font-size:clamp(2.4rem, 5.6vw, 4.4rem); letter-spacing:-.01em;}
+  .hero-sub{color:var(--grey); font-size:1.05rem; max-width:38ch;}
+  @media (max-width:820px){ .hero-grid{grid-template-columns:1fr; gap:24px;} .hero{padding:56px 0 40px;} }
+
+  /* ---------- Doorway panels ---------- */
+  .door{
+    border-top:1px solid var(--line);
+    padding:70px 0;
+  }
+  .door:last-of-type{border-bottom:1px solid var(--line);}
+  .door-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+  }
+  .door.reverse .door-grid{grid-template-columns:1fr 1fr;}
+  .door.reverse .door-text{order:2;}
+  .door.reverse .door-art{order:1;}
+  .door-kicker{color:var(--grey); font-size:.95rem; margin-bottom:14px;}
+  .door h2{font-size:clamp(1.9rem,3.4vw,2.6rem); margin-bottom:18px;}
+  .door p.desc{color:var(--grey); max-width:46ch; margin-bottom:26px;}
+  .door-cta{
+    display:inline-block; font-size:.95rem; padding-bottom:3px;
+    border-bottom:1px solid var(--ink); cursor:pointer; background:none; border-top:none; border-left:none; border-right:none;
+    font-family:'Archivo',sans-serif; color:var(--ink);
+  }
+  .door.dark{ background:var(--panel-paper); color:var(--panel-ink); border-top:none; }
+  .door.dark .door-kicker{color:#a8a8a0;}
+  .door.dark p.desc{color:#c9c9c2;}
+  .door.dark .door-cta{border-bottom-color:var(--panel-ink); color:var(--panel-ink);}
+
+  .door-art{aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;}
+  .door-art svg{width:100%; height:100%;}
+
+  @media (max-width:820px){
+    .door{padding:48px 0;}
+    .door-grid, .door.reverse .door-grid{grid-template-columns:1fr; gap:28px;}
+    .door.reverse .door-text{order:1;} .door.reverse .door-art{order:2;}
+  }
+
+  /* ---------- Mission ---------- */
+  .mission{
+    background:var(--panel-paper); color:var(--panel-ink);
+    padding:90px 0; text-align:center;
+  }
+  .mission blockquote{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:400;
+    font-size:clamp(1.3rem,2.6vw,1.9rem); max-width:60ch; margin:0 auto; line-height:1.5;
+  }
+  .mission cite{display:block; margin-top:22px; font-style:normal; font-family:'Archivo',sans-serif; font-size:.85rem; color:#a8a8a0;}
+
+  /* ---------- Newsletter ---------- */
+  .letter{padding:70px 0; border-bottom:1px solid var(--line);}
+  .letter-row{display:flex; gap:40px; justify-content:space-between; align-items:flex-end; flex-wrap:wrap;}
+  .letter h3{font-size:1.5rem; max-width:26ch;}
+  .letter-form{display:flex; gap:0; border-bottom:1px solid var(--ink); min-width:280px; flex:1; max-width:380px;}
+  .letter-form input{
+    flex:1; border:none; background:none; padding:10px 4px; font-family:'Archivo',sans-serif;
+    font-size:.95rem; color:var(--ink); outline:none;
+  }
+  .letter-form button{
+    border:none; background:none; cursor:pointer; font-family:'Archivo',sans-serif;
+    font-size:.9rem; padding:10px 4px; color:var(--ink); border-left:1px solid var(--line);
+  }
+  .letter-note{font-size:.85rem; color:var(--grey); margin-top:10px;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:44px 0 60px;}
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--grey);}
+  .foot-links{display:flex; gap:18px; list-style:none; margin:0; padding:0; flex-wrap:wrap;}
+
+  /* ---------- Inner pages ---------- */
+  .page-head{padding:66px 0 34px; border-bottom:1px solid var(--line);}
+  .page-head .kicker{color:var(--grey); font-size:.95rem; margin-bottom:12px;}
+  .page-head h1{font-size:clamp(2.2rem,5vw,3.4rem);}
+  .page-head p.lede{margin-top:18px; max-width:56ch; color:var(--grey); font-size:1.05rem;}
+  .back{
+    display:inline-block; margin-bottom:26px; font-size:.9rem; color:var(--grey);
+    background:none; border:none; cursor:pointer; font-family:'Archivo',sans-serif;
+  }
+  .back:hover{color:var(--ink);}
+
+  .section-pad{padding:60px 0;}
+  .section-pad.border-t{border-top:1px solid var(--line);}
+
+  /* product list */
+  .plist{border-top:1px solid var(--line);}
+  .prow{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:26px 0; border-bottom:1px solid var(--line); gap:20px;
+  }
+  .prow .pname{font-family:'Fraunces',serif; font-size:1.3rem;}
+  .prow .pdesc{color:var(--grey); font-size:.92rem; margin-top:6px; max-width:52ch;}
+  .prow .pprice{font-size:1rem; white-space:nowrap; color:var(--grey);}
+
+  .out-link{
+    display:inline-block; margin-top:14px; font-size:.95rem; padding-bottom:3px;
+    border-bottom:1px solid var(--ink); text-decoration:none; color:var(--ink);
+  }
+
+  /* steps (Space page) */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:44px; margin-top:10px;}
+  .step .num{font-family:'Fraunces',serif; font-style:italic; font-size:1.1rem; color:var(--grey);}
+  .step h3{margin-top:10px; font-size:1.25rem;}
+  .step p{margin-top:10px; color:var(--grey); font-size:.95rem;}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr; gap:30px;} }
+
+  .cta-block{
+    margin-top:50px; padding:44px; background:var(--panel-paper); color:var(--panel-ink);
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .cta-block h3{font-size:1.4rem; max-width:24ch;}
+  .cta-block a{
+    border:1px solid var(--panel-ink); padding:12px 26px; text-decoration:none; font-size:.9rem;
+    white-space:nowrap;
+  }
+
+  .bio-grid{display:grid; grid-template-columns:1fr 1.3fr; gap:60px; align-items:start;}
+  .bio-art{aspect-ratio:3/4;}
+  .bio-grid p{margin-bottom:18px; color:var(--ink);}
+  .bio-grid p.grey{color:var(--grey);}
+  @media (max-width:760px){ .bio-grid{grid-template-columns:1fr;} }
+
+  [data-view]{display:none;}
+  [data-view].active{display:block;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <button class="mark" data-route="">JC</button>
+    <ul class="navlinks" id="navlinks">
+      <li><button data-route="about">Meet JC</button></li>
+      <li><button data-route="learn">Learn</button></li>
+      <li><button data-route="adorn">Adorn</button></li>
+      <li><button data-route="space">Space</button></li>
+    </ul>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section data-view="home" class="active">
+    <div class="wrap hero">
+      <div class="hero-grid">
+        <h1>Empowered to work.<br>Working to empower.</h1>
+        <p class="hero-sub">I'm JC — a designer, teacher, and maker of faith-forward spaces. Three doors into the work live here: resources for the classroom, adornment for the walk of faith, and design for the rooms in between.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <!-- Door 1: Learn -->
+      <div class="door">
+        <div class="door-grid">
+          <div class="door-text">
+            <div class="door-kicker">Teacher organization &amp; resources</div>
+            <h2>Classyroom Prints</h2>
+            <p class="desc">Bring a little more sass to every teacher's class. Beautifully made printables, learning resources, and organizational tools that help teachers create calm, creative classroom moments — and care for the school culture at large.</p>
+            <button class="door-cta" data-route="learn">Explore the classroom shop</button>
+          </div>
+          <div class="door-art">
+            <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="298" height="223" fill="none" stroke="var(--ink)" stroke-width="1"/>
+              <line x1="30" y1="40" x2="270" y2="40" stroke="var(--ink)" stroke-width="1"/>
+              <line x1="30" y1="70" x2="230" y2="70" stroke="var(--ink)" stroke-width="1"/>
+              <line x1="30" y1="100" x2="250" y2="100" stroke="var(--ink)" stroke-width="1"/>
+              <circle cx="60" cy="160" r="22" fill="none" stroke="var(--ink)" stroke-width="1"/>
+              <path d="M110 182 l24 -44 24 44 z" fill="none" stroke="var(--ink)" stroke-width="1"/>
+              <rect x="190" y="140" width="44" height="44" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Door 2: Adorn -->
+      <div class="door reverse">
+        <div class="door-grid">
+          <div class="door-text">
+            <div class="door-kicker">Faith-based products &amp; design</div>
+            <h2>Adorned Doctrine</h2>
+            <p class="desc">A curated collection of faith-based products and resources, blending a range of styles with clear doctrinal purpose — items that honor God and inspire your daily walk of faith.</p>
+            <button class="door-cta" data-route="adorn">Explore the collection</button>
+          </div>
+          <div class="door-art">
+            <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="298" height="223" fill="none" stroke="var(--ink)" stroke-width="1"/>
+              <line x1="150" y1="40" x2="150" y2="185" stroke="var(--ink)" stroke-width="1"/>
+              <line x1="105" y1="80" x2="195" y2="80" stroke="var(--ink)" stroke-width="1"/>
+              <circle cx="150" cy="112" r="46" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Door 3: Space -->
+      <div class="door dark">
+        <div class="door-grid">
+          <div class="door-text">
+            <div class="door-kicker">Organizing &amp; staging</div>
+            <h2>Space Pinch &amp; Staging</h2>
+            <p class="desc">Turn tight, cluttered areas into calm, functional spaces. From classrooms to closets to cozy corners at home, we clear out, organize, and stage spaces that are beautiful, practical, and easy to maintain.</p>
+            <button class="door-cta" data-route="space">Book a consultation</button>
+          </div>
+          <div class="door-art">
+            <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="298" height="223" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+              <rect x="30" y="30" width="100" height="75" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+              <rect x="150" y="30" width="120" height="45" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+              <rect x="150" y="90" width="55" height="95" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+              <rect x="220" y="90" width="50" height="60" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+              <rect x="30" y="120" width="100" height="65" fill="none" stroke="var(--panel-ink)" stroke-width="1"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission">
+      <div class="wrap">
+        <blockquote>
+          Our mission is to support the Christian community and those in need through our work. By 2032, we aspire to be fully dedicated to Widow's Mighte — ensuring that every resource we create and every space we stage is a step toward funding a self-sustained, financial and spiritual empowerment for the church.
+          Join the journey of faith and design
+        </blockquote>
+      </div>
+    </div>
+
+    <div class="wrap letter">
+      <div class="letter-row">
+        <h3>First look at new prints, doctrine drops, and open staging slots.</h3>
+        <div>
+          <form class="letter-form" id="newsletterForm">
+            <input type="email" placeholder="you@email.com" required>
+            <button type="submit">Join the list</button>
+          </form>
+          <p class="letter-note" id="newsletterNote">No spam — just freebies and updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / MEET JC -->
+  <section data-view="about">
+    <div class="wrap page-head">
+      <button class="back" data-route="">&larr; Back to the hub</button>
+      <div class="kicker">Meet JC</div>
+      <h1>Hi, I'm JC.</h1>
+      <p class="lede">Designer by nature, teacher and servant by calling.</p>
+    </div>
+    <div class="wrap section-pad">
+      <div class="bio-grid">
+        <div class="bio-art">
+          <svg viewBox="0 0 220 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+            <rect x="1" y="1" width="218" height="288" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            <circle cx="110" cy="105" r="52" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            <path d="M45 250 Q110 175 175 250" fill="none" stroke="var(--ink)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div>
+          <p>I've been endowed with natural skills around designing and adorning, and spiritual gifts around teaching and serving. I'm empowered to work, and I work to empower others.</p>
+          <p>Here you'll find my modes of enterprise — curated resources and designs created to uplift educators, transform spaces, and point hearts back to God.</p>
+          <p class="grey">My mission is to fully fund and sustain a non-profit venture, Widow's Mighte, through the work of my hands, so every purchase helps to mobilize, support, and strengthen those in need.</p>
+          <p class="grey">Take a look around, learn more about the story, and join me in this work of faith.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARN / CLASSYROOM PRINTS -->
+  <section data-view="learn">
+    <div class="wrap page-head">
+      <button class="back" data-route="">&larr; Back to the hub</button>
+      <div class="kicker">Teacher organization, teacher resources, and school items</div>
+      <h1>Classyroom Prints</h1>
+      <p class="lede">Beautifully made printables, learning resources, and organizational tools that help teachers create calm, creative classroom moments — and care for the school culture at large.</p>
+    </div>
+    <div class="wrap section-pad">
+      <div class="plist">
+        <div class="prow">
+          <div>
+            <div class="pname">Subject Mastery Charts</div>
+            <div class="pdesc">Track progress across every subject with one clean, printable system.</div>
+          </div>
+          <div class="pprice">$19.00</div>
+        </div>
+        <div class="prow">
+          <div>
+            <div class="pname">Guided Reading Tracker</div>
+            <div class="pdesc">Keep reading groups, levels, and notes organized in one place.</div>
+          </div>
+          <div class="pprice">$22.00</div>
+        </div>
+        <div class="prow">
+          <div>
+            <div class="pname">Classroom Management Guide</div>
+            <div class="pdesc">Practical routines and tools for a calmer, more consistent room.</div>
+          </div>
+          <div class="pprice">$15.00</div>
+        </div>
+        <div class="prow">
+          <div>
+            <div class="pname">Grace Room Decor</div>
+            <div class="pdesc">Gentle, encouraging prints to soften and warm the classroom walls.</div>
+          </div>
+          <div class="pprice">$8.00</div>
+        </div>
+        <div class="prow">
+          <div>
+            <div class="pname">Scripture Inspired Canvas</div>
+            <div class="pdesc">A statement canvas piece for a classroom or home that points to faith.</div>
+          </div>
+          <div class="pprice">$55.00</div>
+        </div>
+      </div>
+      <a class="out-link" href="https://www.jcdesignandadorn.com/classyroom-prints-v2" target="_blank" rel="noopener">View the full shop on jcdesignandadorn.com</a>
+
+      <div class="cta-block">
+        <h3>Looking for something specific for your room?</h3>
+        <a href="mailto:info@jcdesignandadorn.com">Ask JC directly</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADORN / ADORNED DOCTRINE -->
+  <section data-view="adorn">
+    <div class="wrap page-head">
+      <button class="back" data-route="">&larr; Back to the hub</button>
+      <div class="kicker">Faith-based products &amp; design</div>
+      <h1>Adorned Doctrine</h1>
+      <p class="lede">A curated collection of faith-based products and resources, blending a range of styles with clear doctrinal purpose — items that honor God and inspire your daily walk of faith.</p>
+    </div>
+    <div class="wrap section-pad">
+      <div class="bio-grid">
+        <div>
+          <p>Every piece in this collection starts with a question: does this point a person back to God? From wall art to keepsakes, the goal is design with doctrine underneath it — not decoration for its own sake.</p>
+          <p class="grey">New drops are announced first to the newsletter list, and every purchase helps fund Widow's Mighte, a non-profit built to mobilize and support those in need within the church community.</p>
+          <a class="out-link" href="https://www.jcdesignandadorn.com/adorne" target="_blank" rel="noopener">View the full collection on jcdesignandadorn.com</a>
+        </div>
+        <div class="door-art">
+          <svg viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="298" height="223" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="150" y1="35" x2="150" y2="190" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="100" y1="75" x2="200" y2="75" stroke="var(--ink)" stroke-width="1"/>
+            <circle cx="150" cy="112" r="50" fill="none" stroke="var(--ink)" stroke-width="1"/>
+            <circle cx="150" cy="112" r="70" fill="none" stroke="var(--line)" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Want a heads-up when new doctrine-driven pieces drop?</h3>
+        <a href="mailto:info@jcdesignandadorn.com?subject=Adorned%20Doctrine%20updates">Get on the list</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACE / STAGING -->
+  <section data-view="space">
+    <div class="wrap page-head">
+      <button class="back" data-route="">&larr; Back to the hub</button>
+      <div class="kicker">Organizing &amp; staging</div>
+      <h1>Space Pinch &amp; Staging</h1>
+      <p class="lede">Turn tight, cluttered areas into calm, functional spaces. From classrooms to closets to cozy corners at home, we clear out, organize, and stage spaces that are beautiful, practical, and easy to maintain.</p>
+    </div>
+    <div class="wrap section-pad">
+      <div class="steps">
+        <div class="step">
+          <div class="num">One</div>
+          <h3>Consult</h3>
+          <p>We walk the space together and talk through how it's actually used day to day, and what "done" should feel like.</p>
+        </div>
+        <div class="step">
+          <div class="num">Two</div>
+          <h3>Clear</h3>
+          <p>We sort, pare down, and remove what's cluttering the space — keeping only what earns its spot.</p>
+        </div>
+        <div class="step">
+          <div class="num">Three</div>
+          <h3>Stage</h3>
+          <p>We organize and style what's left so the space stays beautiful and easy to maintain long after we leave.</p>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Have a room, closet, or classroom that needs a pinch?</h3>
+        <a href="mailto:info@jcdesignandadorn.com?subject=Space%20Pinch%20%26%20Staging%20consultation">Book a consultation</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>© 2026 JC Design &amp; Adorn. All rights reserved.<br>info@jcdesignandadorn.com</div>
+    <ul class="foot-links">
+      <li>Facebook</li><li>Instagram</li><li>YouTube</li><li>X</li><li>LinkedIn</li><li>TikTok</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const views = document.querySelectorAll('[data-view]');
+  const navButtons = document.querySelectorAll('[data-route]');
+  const navlinks = document.getElementById('navlinks');
+  const navtoggle = document.getElementById('navtoggle');
+
+  function routeFromHash(){
+    return (location.hash || '#').replace('#','').replace('/','');
+  }
+
+  function render(){
+    const route = routeFromHash();
+    const valid = ['home','about','learn','adorn','space'];
+    const target = valid.includes(route) ? route : (route === '' ? 'home' : 'home');
+    views.forEach(v => v.classList.toggle('active', v.dataset.view === target));
+    document.querySelectorAll('.navlinks button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.route === (target === 'home' ? '' : target));
+    });
+    navlinks.classList.remove('open');
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+  }
+
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const r = btn.dataset.route;
+      location.hash = r ? '/' + r : '/';
+    });
+  });
+
+  navtoggle.addEventListener('click', ()=> navlinks.classList.toggle('open'));
+
+  window.addEventListener('hashchange', render);
+  render();
+
+  const form = document.getElementById('newsletterForm');
+  const note = document.getElementById('newsletterNote');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    note.textContent = "Thanks — you're on the list.";
+  });
+</script>
+
+</body>
+</html>
